@@ -24,6 +24,15 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+    public function clientes()
+    {
+        return $this->hasMany(User::class, 'contador_id');
+    }
+
+    public function contador()
+    {
+        return $this->belongsTo(User::class, 'contador_id');
+    }
     protected function casts(): array
     {
         return [
@@ -40,23 +49,27 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
 
-    public function expenses() {
-    return $this->hasMany(\App\Models\Expense::class);
-}
+    public function expenses()
+    {
+        return $this->hasMany(\App\Models\Expense::class);
+    }
 
-public function incomes() {
-    return $this->hasMany(\App\Models\Income::class);
-}
+    public function incomes()
+    {
+        return $this->hasMany(\App\Models\Income::class);
+    }
 
-public function alerts() {
-    return $this->hasMany(\App\Models\Alert::class);
-}
+    public function alerts()
+    {
+        return $this->hasMany(\App\Models\Alert::class);
+    }
 
-public function observations() {
-    return $this->hasMany(\App\Models\Observation::class);
-}
+    public function observations()
+    {
+        return $this->hasMany(\App\Models\Observation::class);
+    }
 }
